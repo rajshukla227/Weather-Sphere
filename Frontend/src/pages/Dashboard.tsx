@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import WeatherMap from "../components/WeatherMap";
@@ -57,6 +57,7 @@ export interface WeatherData {
 
 const Dashboard = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -103,7 +104,11 @@ const Dashboard = () => {
   }, [weather]);
 
   const handleToggleSave = async () => {
-    if (!weather || !user) return;
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    if (!weather) return;
     try {
       if (isSaved) {
         await api.delete(`/weather/saved/${encodeURIComponent(weather.city)}`);
@@ -264,7 +269,7 @@ const Dashboard = () => {
           <WeatherCard
             weather={weather}
             isSaved={isSaved}
-            onToggleSave={user ? handleToggleSave : undefined}
+            onToggleSave={handleToggleSave}
           />
 
           <WeatherDetails
