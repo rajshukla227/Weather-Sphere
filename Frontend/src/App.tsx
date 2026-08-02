@@ -6,6 +6,7 @@ import History from "./pages/History";
 import SavedLocations from "./pages/SavedLocations";
 import ProtectedRoute from "./components/ProtectedRoute";
 import WeatherDetectorBg from "./components/WeatherDetectorBg";
+import AmbientSounds from "./components/AmbientSounds";
 import { WeatherProvider } from "./context/WeatherContext";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <WeatherProvider>
       <Router>
         <WeatherDetectorBg />
+        <AmbientSounds />
         <Routes>
           {/* Public Routes */}
           <Route path="/dashboard" element={<Dashboard />} />
