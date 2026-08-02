@@ -2,7 +2,7 @@
   "name": "weathersphere-root",
   "version": "1.0.0",
   "scripts": {
-    "dev": "npm --prefix Frontend run dev",
+    "dev": "concurrently \"npm --prefix Backend run dev\" \"npm --prefix Frontend run dev\"",
     "dev:backend": "npm --prefix Backend run dev",
     "build": "npm --prefix Backend run build && npm --prefix Frontend run build"
   },
@@ -10,5 +10,8 @@
     "@vis.gl/react-google-maps": "^1.9.0",
     "dotenv": "^17.4.2",
     "mongoose": "^9.8.0"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.4"
   }
 }
